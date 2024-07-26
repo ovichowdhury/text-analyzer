@@ -19,6 +19,10 @@ import {
 import { TextEntity } from './entities/text.entity';
 import { TextNotFound } from './dto/text-not-found.dto';
 import { ValidIdPipe } from './pipes/valid-id/valid-id.pipe';
+import { CountOfWordsDto } from './dto/count-of-words.dto';
+import { CountOfCharactersDto } from './dto/count-of-characters.dto';
+import { CountOfSentencesDto } from './dto/count-of-sentences.dto';
+import { CountOfParagraphsDto } from './dto/count-of-paragraphs.dto';
 
 @Controller('text')
 export class TextController {
@@ -63,5 +67,37 @@ export class TextController {
   @ApiNotFoundResponse({ type: TextNotFound })
   remove(@Param('id', ValidIdPipe) id: string) {
     return this.textService.remove(+id);
+  }
+
+  @Get(':id/words')
+  @ApiTags('Texts')
+  @ApiOkResponse({ type: CountOfWordsDto })
+  @ApiNotFoundResponse({ type: TextNotFound })
+  async countOfWords(@Param('id', ValidIdPipe) id: string) {
+    return await this.textService.countOfWords(+id);
+  }
+
+  @Get(':id/characters')
+  @ApiTags('Texts')
+  @ApiOkResponse({ type: CountOfCharactersDto })
+  @ApiNotFoundResponse({ type: TextNotFound })
+  async countOfCharacters(@Param('id', ValidIdPipe) id: string) {
+    return await this.textService.countOfCharacters(+id);
+  }
+
+  @Get(':id/sentences')
+  @ApiTags('Texts')
+  @ApiOkResponse({ type: CountOfSentencesDto })
+  @ApiNotFoundResponse({ type: TextNotFound })
+  async countOfSentences(@Param('id', ValidIdPipe) id: string) {
+    return await this.textService.countOfSentences(+id);
+  }
+
+  @Get(':id/paragraphs')
+  @ApiTags('Texts')
+  @ApiOkResponse({ type: CountOfParagraphsDto })
+  @ApiNotFoundResponse({ type: TextNotFound })
+  async countOfParagraphs(@Param('id', ValidIdPipe) id: string) {
+    return await this.textService.countOfSentences(+id);
   }
 }
