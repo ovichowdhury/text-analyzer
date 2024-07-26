@@ -12,8 +12,7 @@ datasource db {
 
 model Texts {
   id        Int      @id @default(autoincrement())
-  text     String
+  text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
