@@ -23,6 +23,7 @@ import { CountOfWordsDto } from './dto/count-of-words.dto';
 import { CountOfCharactersDto } from './dto/count-of-characters.dto';
 import { CountOfSentencesDto } from './dto/count-of-sentences.dto';
 import { CountOfParagraphsDto } from './dto/count-of-paragraphs.dto';
+import { LongestWordInParagraphsDto } from './dto/longest-word-in-paragraphs.dto';
 
 @Controller('text')
 export class TextController {
@@ -99,5 +100,13 @@ export class TextController {
   @ApiNotFoundResponse({ type: TextNotFound })
   async countOfParagraphs(@Param('id', ValidIdPipe) id: string) {
     return await this.textService.countOfSentences(+id);
+  }
+
+  @Get(':id/paragraphs/longest-word')
+  @ApiTags('Texts')
+  @ApiOkResponse({ type: LongestWordInParagraphsDto })
+  @ApiNotFoundResponse({ type: TextNotFound })
+  async longestWordsInParagraphs(@Param('id', ValidIdPipe) id: string) {
+    return await this.textService.longestWordInParagraphs(+id);
   }
 }

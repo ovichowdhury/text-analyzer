@@ -6,8 +6,13 @@ import { TextEntity } from './entities/text.entity';
 import { CountOfWordsDto } from './dto/count-of-words.dto';
 import { CountOfCharactersDto } from './dto/count-of-characters.dto';
 import { CountOfSentencesDto } from './dto/count-of-sentences.dto';
-import { separateParagraphs, separateSentences } from './utils/text.util';
+import {
+  getLongestWordInParagraphs,
+  separateParagraphs,
+  separateSentences,
+} from './utils/text.util';
 import { CountOfParagraphsDto } from './dto/count-of-paragraphs.dto';
+import { LongestWordInParagraphsDto } from './dto/longest-word-in-paragraphs.dto';
 
 @Injectable()
 export class TextService {
@@ -73,6 +78,16 @@ export class TextService {
     return new CountOfParagraphsDto({
       count: separateParagraphs(textInstance.text).length,
       text: textInstance.text,
+    });
+  }
+
+  async longestWordInParagraphs(
+    id: number,
+  ): Promise<LongestWordInParagraphsDto> {
+    const textInstance: TextEntity = await this.findOne(id);
+    return new LongestWordInParagraphsDto({
+      text: textInstance.text,
+      paragraphs: getLongestWordInParagraphs(textInstance.text),
     });
   }
 }
