@@ -99,7 +99,7 @@ export class TextController {
   @ApiOkResponse({ type: CountOfParagraphsDto })
   @ApiNotFoundResponse({ type: TextNotFound })
   async countOfParagraphs(@Param('id', ValidIdPipe) id: string) {
-    return await this.textService.countOfSentences(+id);
+    return await this.textService.countOfParagraphs(+id);
   }
 
   @Get(':id/paragraphs/longest-word')

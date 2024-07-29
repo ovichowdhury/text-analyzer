@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import LongestWordInParagraph from '../interface/longest-word-in-paragraph/longest-word-in-paragraph.interface';
 
-class LongestWordInParagraphType implements LongestWordInParagraph {
+export class LongestWordInParagraphType implements LongestWordInParagraph {
+  constructor({ ...data }: Partial<LongestWordInParagraphType>) {
+    Object.assign(this, data);
+  }
+
   @ApiProperty({ required: true })
   word: string;
 
